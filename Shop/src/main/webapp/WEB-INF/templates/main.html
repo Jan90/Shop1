@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:text="#{title}"></title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="css/style.css"
+	media="screen"></link>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/json2/20140204/json2.min.js"></script>
+<script type="text/javascript"
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+</head>
+<body>
+	<script type="text/javascript" src="js/main.js">
+	</script>
+
+	<div class="container" id="container">
+		<div class="header" id="header">
+			<h1 th:text="#{header}"></h1>
+		</div>
+		<div class="menu" id="menu">
+			<p>
+				<input class="button" type="button" id="toMainPageButton"
+					th:value="#{main.main}"
+					th:onclick="'javascript:nextPage(this.id);'"></input>
+			</p>
+			<br></br>
+			<p>
+				<input class="button" type="button" id="toProductListButton"
+					th:value="#{main.catalogue}"
+					th:onclick="'javascript:nextPage(this.id);'"></input>
+			</p>
+			<br></br>
+			<p>
+				<input class="button" type="button" id="toShopCartButton"
+					th:value="#{main.shopping-cart}"
+					th:onclick="'javascript:nextPage(this.id);'"></input>
+			</p>
+			<select id="changeBackgrnd" onchange="changeBackgrnd(this.id)">
+				<option th:text="#{main.choose-color}"></option>
+				<option th:value="#{main.hex.color-blue}"
+					th:text="#{main.color-blue}"></option>
+				<option th:value="#{main.hex.color-green}"
+					th:text="#{main.color-green}"></option>
+				<option th:value="#{main.hex.color-red}" th:text="#{main.color-red}"></option>
+				<option th:value="#{main.hex.color-purple}"
+					th:text="#{main.color-purple}"></option>
+				<option th:value="#{main.hex.color-very_light_red}"
+					th:text="#{main.color-very_light_red}"></option>
+			</select>
+		</div>
+		<div class="content" id="content">
+			<div class="information">
+				<h2 th:text="#{main.information}"></h2>
+			</div>
+			<div class="newItems">
+				<h1 th:text="#{main.table-header}"></h1>
+				<table>
+					<tr>
+						<th th:text="#{main.table-column_2}"></th>
+						<th th:text="#{main.table-column_3}"></th>
+						<th th:text="#{main.table-column_4}"></th>
+					</tr>
+					<tr th:each="product : ${newProducts}">
+						<td th:value="${product.type}" th:text="${product.type}"></td>
+						<td th:value="${product.genre}" th:text="${product.genre}"></td>
+						<td th:value="${product.name}" th:text="${product.name}"></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="footer" id="footer" th:text="#{main.footer}"></div>
+	</div>
+</body>
+</html>

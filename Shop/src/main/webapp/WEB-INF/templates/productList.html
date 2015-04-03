@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:text="#{title}"></title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<script type="text/javascript"  src="js/productList.js">
+</script>
+</head>
+<body>
+	<div class="container" id="container">
+		<div class="searchBy" id="searchBy">
+			<form name="dropDown" id="dropDown">
+				<p id="dropDown_name" th:text="#{productList.type}"></p>
+				<select id="prodType" class="prodType"
+					onchange="getGenres(this.value)">
+					<option th:text="#{productList.select}"></option>
+					<option th:value="#{productList.video}"
+						th:text="#{productList.video}"></option>
+					<option th:value="#{productList.audio}"
+						th:text="#{productList.audio}"></option>
+				</select>
+				<p id="dropDown_name" th:text="#{productList.genre}"></p>
+				<select id="genre" class="genre" onchange="showProductList()">
+					<option th:text="#{productList.select}"></option>
+				</select>
+			</form>
+			<div class="search" id="search">
+				<div>
+					<input class="text" id="text" type="text" size="20"
+						onchange="showProductListByName(this.value)" /> <input
+						class="text" id="text_search" type="submit"
+						th:value="#{productList.search}" />
+				</div>
+			</div>
+		</div>
+		<div class="content" id="content">
+			<form name="productList" action=""
+				onsubmit="addToShoppingCart();return false;">
+				<div class="productList" id="productList">
+					<h1 th:text="#{main.table-header}"></h1>
+					<table>
+						<tr>
+							<th></th>
+							<th th:text="#{table-column_2}"></th>
+							<th th:text="#{table-column_3}"></th>
+							<th th:text="#{table-column_4}"></th>
+						</tr>
+						<tr th:each="product : ${productList}">
+							<td><input type="checkbox" id="product" name="product" /></td>
+							<td><input type="hidden" id="product" name="product"
+								th:value="${product.type}" th:text="${product.type}" /></td>
+							<td><input type="hidden" id="product" name="product"
+								th:value="${product.genre}" th:text="${product.genre}" /></td>
+							<td><input type="hidden" id="product" name="product"
+								th:value="${product.name}" th:text="${product.name}" /></td>
+						</tr>
+					</table>
+					<div id="addToCart">
+						<input class="button" id="addToCartButton" type="submit"
+							th:value="#{productList.shoppingCart}"></input>
+					</div>
+					<div class="pagination" id="pagination">
+						<a th:if="${page &gt; 1}" href="#"
+							th:onclick="'javascript:showPaginProductList(1);'"> first </a> <a
+							th:if="${page &gt; 1}" href="#"
+							th:onclick="'javascript:showPaginProductList(\''+ ${page-1} + '\');'">
+							previous </a> <a th:if="${page &lt; pageCount}" th:href="@{#}"
+							th:each="pageNumber : ${#numbers.sequence(page, pageCount)}"
+							th:onclick="'javascript:showPaginProductList(\''+ ${pageNumber} + '\');'"
+							th:text="${pageNumber}"></a> <a th:if="${page &lt; pageCount}"
+							th:href="@{#}"
+							th:onclick="'javascript:showPaginProductList(\''+ ${page+1} + '\');'">
+							next </a> <a th:if="${page &lt; pageCount}" th:href="@{#}"
+							th:onclick="'javascript:showPaginProductList(\''+ ${pageCount} + '\');'">
+							last </a>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>
+

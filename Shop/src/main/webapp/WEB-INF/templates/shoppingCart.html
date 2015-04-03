@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+<title th:text="#{shopping-cart}"></title>
+<script type="text/javascript" src="js/shoppingCart.js">
+</script>
+</head>
+<body>
+	<h1 th:text="#{shoppingCart.shopping-cart}"></h1>
+	<table>
+		<tr>
+			<th th:text="#{table-column_2}"></th>
+			<th th:text="#{table-column_3}"></th>
+			<th th:text="#{table-column_4}"></th>
+			<th th:text="#{shoppingCart.table-column_5}"></th>
+			<td></td>
+		</tr>
+		<tr th:each="product,data : ${cartProducts}">
+			<td th:value="${product.type}" th:text="${product.type}"></td>
+			<td th:value="${product.genre}" th:text="${product.genre}"></td>
+			<td th:value="${product.name}" th:text="${product.name}"></td>
+			<td th:value="${product.quantity}" th:text="${product.quantity}"></td>
+			<td><form>
+					<button id="removeProductButton" th:value="${data.index}"
+						th:text="#{shoppingCart.removeProduct}"
+						onclick="removeProduct(this.value)" type="button"></button>
+				</form></td>
+		</tr>
+	</table>
+</body>
+</html>
+
